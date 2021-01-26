@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        jcenter() // this applies only to the Gradle 'Shadow' plugin
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    //id 'com.palantir.git-version' version '0.12.3'
+}
+
+
+// artifact properties
+group = 'com.wt'
+version = VERSION
+description = "这是一个gradle flink 项目"
+// 执行主类
+mainClassName = 'com.wt.flink.WordCount'
+// jar包名称
+archivesBaseName = 'gradle-flink'
+
+//常量参数
+ext {
+    flinkVersion = '1.9.1'
+    scalaBinaryVersion = '2.12'
+    slf4jVersion = '1.7.7'
+    log4jVersion = '1.2.17'
+}
+
+// java编译器使用版本
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.targetCompatibility = JavaVersion.VERSION_1_8
+
+//java 编译器 编码
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+//设置log4j 配置文件
+applicationDefaultJvmArgs = ["-Dlog4j.configuration=log4j.properties"]
+
+// 插件配置
+jar {
+    manifest {
+        attributes 'Built-By': System.getProperty('user.name'),
+                'Build-Jdk': System.getProperty('java.version'),
+                'Build-OsName':System.getProperty('os.name'),
+                'Build-OsVersion':System.getProperty('os.version'),
+                'Main-Class':mainClassName,
+                'Project-Version':archiveVersion,
+                'Project-Name':rootProject.name
+    }
+}
+shadowJar {
+    manifest {
+        attributes 'Built-By': System.getProperty('user.name'),
+                'Build-Jdk': System.getProperty('java.version'),
+                'Build-OsName': System.getProperty('os.name'),
+                'Build-OsVersion': System.getProperty('os.version'),
+                'Main-Class': mainClassName,
+                'Project-Version': archiveVersion,
+                'Project-Name': rootProject.name
+    }
+}
+
+// 仓库配置
+repositories {
+    mavenCentral()
+}
+// 依赖jar
+dependencies {
+    implementation "org.apache.flink:flink-java:${flinkVersion}"
+    implementation "org.apache.flink:flink-streaming-java_${scalaBinaryVersion}:${flinkVersion}"
+    implementation "log4j:log4j:${log4jVersion}"
+    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+}
