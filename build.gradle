@@ -20,7 +20,7 @@ group = 'com.wt'
 version = VERSION
 description = "这是一个gradle flink 项目"
 // 执行主类
-mainClassName = 'com.wt.flink.WordCount'
+mainClassName = 'com.gradle.flink.WordCount'
 // jar包名称
 archivesBaseName = 'gradle-flink'
 
