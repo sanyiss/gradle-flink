@@ -17,19 +17,19 @@ plugins {
 
 // artifact properties
 group = 'com.wt'
-version = VERSION
+version = "1.1.0"
 description = "这是一个gradle flink 项目"
 // 执行主类
-mainClassName = 'com.gradle.flink.WordCount'
+mainClassName = "com.gradle.flink.WordCount"
 // jar包名称
-archivesBaseName = 'gradle-flink'
+archivesBaseName = "gradle-flink"
 
 //常量参数
 ext {
-    flinkVersion = '1.9.1'
-    scalaBinaryVersion = '2.12'
-    slf4jVersion = '1.7.7'
-    log4jVersion = '1.2.17'
+    flink_version = "1.9.1"
+    scala_binary_version = "2.12"
+    slf4j_version = "1.7.7"
+    log4j_version = "1.2.17"
 }
 
 // java编译器使用版本
@@ -74,8 +74,8 @@ repositories {
 }
 // 依赖jar
 dependencies {
-    implementation "org.apache.flink:flink-java:${flinkVersion}"
-    implementation "org.apache.flink:flink-streaming-java_${scalaBinaryVersion}:${flinkVersion}"
-    implementation "log4j:log4j:${log4jVersion}"
-    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    implementation "org.apache.flink:flink-java:${flink_version}"
+    implementation "org.apache.flink:flink-streaming-java_${scala_binary_version}:${flink_version}"
+    implementation "log4j:log4j:${log4j_version}"
+    implementation "org.slf4j:slf4j-log4j12:${slf4j_version}"
 }
